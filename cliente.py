@@ -1,7 +1,7 @@
 import requests
 
 # URL base de la API
-base_url = "http://127.0.0.1:8000"
+base_url = "http://192.168.45.160:8000"
 
 # Ejemplo de cómo agregar un texto (POST)
 def add_text_api(text):
