@@ -48,7 +48,7 @@ def close_port(port):
 if __name__ == "__main__":
     puerto = 8000
     close_port(puerto)
-    # ip = "192.168.0.62"
+    #ip = "192.168.45.156"
     ip = "0.0.0.0"
     uvicorn.run(app, host=ip, port=puerto)
 
