@@ -1,7 +1,7 @@
 import requests
 
 # URL base de la API
-base_url = "http://170.210.32.67:8000"
+base_url = "https://f0ad-190-192-155-209.ngrok-free.app"
 
 # Ejemplo de cómo agregar un texto (POST)
 def add_text_api(text):
@@ -39,10 +39,10 @@ if __name__ == "__main__":
     add_text_api("Hola, mundo")
 
     # Obtener texto
-    get_text_api(2)
+    get_text_api(1)
 
     # Eliminar texto
-    delete_text_api(2)
+    delete_text_api(1)
 
     # Intentar obtener el texto nuevamente
-    get_text_api(2)
+    get_text_api(1)

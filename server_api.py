@@ -4,6 +4,8 @@ from typing import Dict
 import uvicorn
 from uuid import uuid4
 
+
+
 app = FastAPI()
 
 # Modelo de datos para las cadenas de texto
@@ -48,7 +50,7 @@ def close_port(port):
 if __name__ == "__main__":
     puerto = 8000
     close_port(puerto)
-    #ip = "192.168.45.156"
+    #ip = "170.210.32.67"
     ip = "0.0.0.0"
-    uvicorn.run(app, host=ip, port=puerto)
+    uvicorn.run(app)
 
