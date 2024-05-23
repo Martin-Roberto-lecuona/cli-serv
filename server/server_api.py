@@ -2,41 +2,46 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import Dict
 import uvicorn
-from uuid import uuid4
-
-
+import random
+import string
+import psutil
 
 app = FastAPI()
 
-# Modelo de datos para las cadenas de texto
+# Model for text items
 class TextItem(BaseModel):
     text: str
 
-# Almacenamiento en memoria de los datos
-storage: Dict[int, str] = {}
-current_id = 0
+# In-memory storage
+storage: Dict[str, str] = {}
+current_id_num = 0
+
+# Function to generate a unique ID
+def generate_id(current_id_num: int) -> str:
+    random_letters = ''.join(random.choices(string.ascii_letters, k=2))
+    random_letters_end = ''.join(random.choices(string.ascii_letters, k=2))
+    return f"{random_letters.lower()}{current_id_num:04}{random_letters_end.lower()}"
 
 @app.post("/add/")
 async def add_text(item: TextItem):
-    global current_id
-    current_id += 1
-    storage[current_id] = item.text
-    return current_id
+    global current_id_num
+    current_id_num += 1
+    id = generate_id(current_id_num)
+    storage[id] = item.text
+    return {"id": id}
 
 @app.get("/get/{item_id}")
-async def get_text(item_id: int):
+async def get_text(item_id: str):
     if item_id not in storage:
         raise HTTPException(status_code=404, detail="Item not found")
-    return storage[item_id]
+    return {"text": storage[item_id]}
 
 @app.delete("/delete/{item_id}")
-async def delete_text(item_id: int):
+async def delete_text(item_id: str):
     if item_id not in storage:
         raise HTTPException(status_code=404, detail="Item not found")
     del storage[item_id]
     return {"message": "Item deleted successfully"}
-
-import psutil
 
 def close_port(port):
     for conn in psutil.net_connections(kind='inet'):
@@ -45,13 +50,7 @@ def close_port(port):
             process = psutil.Process(conn.pid)
             process.terminate()
 
-
-
 if __name__ == "__main__":
     puerto = 8000
     close_port(puerto)
-    #ip = "170.210.32.67"
-    ip = "0.0.0.0"
-    uvicorn.run(app)
-    # ngrok http http://localhost:8000 
-
+    uvicorn.run(app, port=puerto)
