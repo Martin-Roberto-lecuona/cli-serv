@@ -53,4 +53,5 @@ if __name__ == "__main__":
     #ip = "170.210.32.67"
     ip = "0.0.0.0"
     uvicorn.run(app)
+    # ngrok http http://localhost:8000 
 
