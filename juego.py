@@ -65,7 +65,7 @@ def unirse_partida(code):
     # Obtiene la IP y el puerto del URL de ngrok
     
     url_ngrok = get_text_api(code)
-    
+    url_ngrok = url_ngrok["text"]
     url_ngrok = descifrar_datos(url_ngrok)
     _, direccion = url_ngrok.split("//")
     ip_remota, puerto_codificado = direccion.split(":")
