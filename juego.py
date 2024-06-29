@@ -4,7 +4,7 @@ from pyngrok import ngrok
 from cryptography.fernet import Fernet
 
 import requests
-base_url = "https://757a-190-192-155-209.ngrok-free.app"
+base_url = "https://c263-190-192-155-209.ngrok-free.app"
 
 # Para usar una clave guardada
 with open("clave.key", "rb") as key_file:
